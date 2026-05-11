@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="style.css" />
+        <script src="./js/script.js" defer></script>
+        <title>My Notes</title>
+    </head>
+    <body onload="showNotes()">
+        <header class="mainHeader">
+            <div class="headerContent">
+                <h1>My Sticky Notes</h1>
+            </div>
+        </header>
+        <main>
+            <section class="content">
+                <!-- Eingabe Dialog -->
+                <section class="noteInputSection">
+                    <div class="noteInputCard" id="noteInputCard">
+                        <input type="text" id="noteTitleInput" placeholder="Titel eingeben..." maxlength="40" />
+
+                        <textarea id="noteTextInput" placeholder="Deine Notiz..." maxlength="500"></textarea>
+
+                        <button class="buttonSaveNote" onclick="saveNote()">Notiz speichern</button>
+                    </div>
+                </section>
+            </section>
+            <!-- Gespeicherte Notizen -->
+            <section class="notesSection">
+                <div id="myNotes"></div>
+            </section>
+        </main>
+        <footer class="mainFooter">
+            <div class="footerContent">
+                <p>©️ My Notes</p>
+            </div>
+        </footer>
+    </body>
+</html>
