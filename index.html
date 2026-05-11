@@ -7,7 +7,7 @@
         <script src="script.js" defer></script>
         <title>My Notes</title>
     </head>
-    <body onload="renderNotes()">
+    <body onload="init()">
         <header class="mainHeader">
             <div class="headerContent">
                 <h1>My Notes</h1>
@@ -22,19 +22,9 @@
 
                         <textarea id="noteTextInput" placeholder="Please enter your note..." maxlength="500"></textarea>
                         <div class="inputFooter">
-                            <div class="noteColorSelection">
-                                <button class="colorButton yellow" onclick="selectNoteColor('#fff59d')"></button>
-
-                                <button class="colorButton green" onclick="selectNoteColor('#c8f7c5')"></button>
-
-                                <button class="colorButton blue" onclick="selectNoteColor('#b3e5fc')"></button>
-
-                                <button class="colorButton pink" onclick="selectNoteColor('#f8bbd0')"></button>
-
-                                <button class="colorButton gray" onclick="selectNoteColor('#d6d6d6')"></button>
-                            </div>
+                            <div id="noteColorSelectionID" class="noteColorSelection"></div>
                         </div>
-                        <button class="buttonSaveNote" onclick="saveNote()">Save note</button>
+                        <button id="buttonSaveNoteID" class="buttonSaveNote">Save note</button>
                     </div>
                 </section>
 
