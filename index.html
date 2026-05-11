@@ -4,13 +4,13 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="style.css" />
-        <script src="./js/script.js" defer></script>
+        <script src="script.js" defer></script>
         <title>My Notes</title>
     </head>
-    <body onload="showNotes()">
+    <body onload="renderNotes()">
         <header class="mainHeader">
             <div class="headerContent">
-                <h1>My Sticky Notes</h1>
+                <h1>My Notes</h1>
             </div>
         </header>
         <main>
@@ -18,17 +18,43 @@
                 <!-- Eingabe Dialog -->
                 <section class="noteInputSection">
                     <div class="noteInputCard" id="noteInputCard">
-                        <input type="text" id="noteTitleInput" placeholder="Titel eingeben..." maxlength="40" />
+                        <input type="text" id="noteTitleInput" placeholder="Please enter a tile..." maxlength="40" />
 
-                        <textarea id="noteTextInput" placeholder="Deine Notiz..." maxlength="500"></textarea>
+                        <textarea id="noteTextInput" placeholder="Please enter your note..." maxlength="500"></textarea>
+                        <div class="inputFooter">
+                            <div class="noteColorSelection">
+                                <button class="colorButton yellow" onclick="selectNoteColor('#fff59d')"></button>
 
-                        <button class="buttonSaveNote" onclick="saveNote()">Notiz speichern</button>
+                                <button class="colorButton green" onclick="selectNoteColor('#c8f7c5')"></button>
+
+                                <button class="colorButton blue" onclick="selectNoteColor('#b3e5fc')"></button>
+
+                                <button class="colorButton pink" onclick="selectNoteColor('#f8bbd0')"></button>
+
+                                <button class="colorButton gray" onclick="selectNoteColor('#d6d6d6')"></button>
+                            </div>
+                        </div>
+                        <button class="buttonSaveNote" onclick="saveNote()">Save note</button>
                     </div>
                 </section>
-            </section>
-            <!-- Gespeicherte Notizen -->
-            <section class="notesSection">
-                <div id="myNotes"></div>
+
+                <!-- Gespeicherte Notizen -->
+                <section class="notesSection">
+                    <h2>Saved Notes</h2>
+                    <div id="myNotes"></div>
+                </section>
+
+                <!-- Archivierte Notizen -->
+                <section class="notesSection">
+                    <h2>Archived Notes</h2>
+                    <div id="archivedNotes"></div>
+                </section>
+
+                <!-- Gelöschte Notizen -->
+                <section class="notesSection">
+                    <h2>Deleted Notes</h2>
+                    <div id="deletedNotes"></div>
+                </section>
             </section>
         </main>
         <footer class="mainFooter">
