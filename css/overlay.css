@@ -1,0 +1,132 @@
+body:has(dialog[open]) {
+    overflow: hidden;
+}
+
+.noteOverlay {
+    margin: auto;
+    border: none;
+    border-radius: 12px;
+    padding: 0;
+    background: transparent;
+}
+
+.noteOverlay::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.overlayContent {
+    width: 420px;
+    min-height: 320px;
+    padding: 24px;
+    border-radius: 12px;
+}
+
+.overlayHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.overlayHeader button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+}
+
+.overlayBody p {
+    white-space: pre-wrap;
+    line-height: 1.5;
+}
+
+.overlayCard {
+    width: 340px;
+    min-height: 340px;
+}
+
+.overlayFooter {
+    margin-top: auto;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+}
+
+.overlayCloseButton {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border: 3px solid black;
+    border-radius: 50px;
+
+    img {
+        width: 25px;
+        height: 25px;
+    }
+}
+
+#overlaySaveButtonID {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    cursor: pointer;
+
+    img {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+dialog[open] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* Dialog fixed to not move scrollbar to top */
+    position: fixed;
+    inset: 50% auto auto 50%;
+    transform: translate(-50%, -50%);
+
+    padding: 20px;
+}
+
+@media (max-width: 450px) {
+    .noteCard {
+        width: 280px;
+        min-height: 340px;
+    }
+    .overlayCard {
+        width: 280px;
+        min-height: 340px;
+    }
+
+    #overlayNoteTitleID {
+        font-size: 1rem;
+    }
+
+    #overlayNoteTextID {
+        font-size: 1rem;
+    }
+
+    .overlayCloseButton {
+        border: 2px solid black;
+
+        img {
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    #overlaySaveButtonID {
+        img {
+            width: 25px;
+            height: 25px;
+        }
+    }
+}

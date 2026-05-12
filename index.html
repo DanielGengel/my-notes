@@ -3,7 +3,15 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="./css/noteInput.css" />
+        <link rel="stylesheet" href="./css/myNotes.css" />
+        <link rel="stylesheet" href="./css/overlay.css" />
         <link rel="stylesheet" href="style.css" />
+
+        <script src="./scripts/templates.js"></script>
+        <script src="./scripts/overlay.js"></script>
+        <script src="./scripts/instructions.js"></script>
+        <script src="./scripts/assets.js"></script>
         <script src="script.js" defer></script>
         <title>My Notes</title>
     </head>
@@ -21,9 +29,6 @@
                         <input type="text" id="noteTitleInput" placeholder="Please enter a tile..." maxlength="40" />
 
                         <textarea id="noteTextInput" placeholder="Please enter your note..." maxlength="500"></textarea>
-                        <div class="inputFooter">
-                            <div id="noteColorSelectionID" class="noteColorSelection"></div>
-                        </div>
                         <button id="buttonSaveNoteID" class="buttonSaveNote">Save note</button>
                     </div>
                 </section>
@@ -45,11 +50,27 @@
                     <h2>Deleted Notes</h2>
                     <div id="deletedNotes"></div>
                 </section>
+
+                <!-- Overlay Dialog -->
+                <dialog class="noteOverlay" id="noteOverlayID" role="dialog" aria-labelledby="overlayNoteTitleID">
+                    <div class="noteInputCard overlayCard" id="overlayContentID">
+                        <input type="text" id="overlayNoteTitleID" maxlength="40" />
+                        <textarea id="overlayNoteTextID"></textarea>
+                        <div class="overlayFooter">
+                            <button id="overlaySaveButtonID">
+                                <img src="./assets/img/icons/save.svg" alt="Save note" />
+                            </button>
+                            <button id="overlayCloseButton" class="overlayCloseButton">
+                                <img src="./assets/img/icons/close.svg" alt="Close dialog" />
+                            </button>
+                        </div>
+                    </div>
+                </dialog>
             </section>
         </main>
         <footer class="mainFooter">
             <div class="footerContent">
-                <p>©️ My Notes</p>
+                <p>©️ Daniel Gengel</p>
             </div>
         </footer>
     </body>

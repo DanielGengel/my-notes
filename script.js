@@ -2,46 +2,68 @@ const myNotesContainer = document.getElementById("myNotes");
 const noteInputCard = document.getElementById("noteInputCard");
 const noteTitleInput = document.getElementById("noteTitleInput");
 const noteTextInput = document.getElementById("noteTextInput");
+const archivedNotesContainer = document.getElementById("archivedNotes");
+const deletedNotesContainer = document.getElementById("deletedNotes");
+const noteOverlay = document.getElementById("noteOverlayID");
+const overlayNoteTitle = document.getElementById("overlayNoteTitleID");
+const overlayNoteText = document.getElementById("overlayNoteTextID");
+
 const btnSaveNote = document.getElementById("buttonSaveNoteID");
-const noteColorSelection = document.getElementById("noteColorSelectionID");
+btnSaveNote.addEventListener("click", saveNote);
+
+const overlaySaveButton = document.getElementById("overlaySaveButtonID");
+overlaySaveButton.addEventListener("click", saveOverlayChanges);
+
+const overlayCloseButton = document.getElementById("overlayCloseButton");
+overlayCloseButton.addEventListener("click", closeNoteOverlay);
 
 // Create empty array or parse if array already available
 let myNotes = JSON.parse(localStorage.getItem("myNotes")) || [];
 
 // Default color
 let selectedNoteColor = "yellow";
-let previousNoteColor = "yellow";
+//let previousNoteColor = "";
 
-// Background colors for notes
-const colors = ["yellow", "green", "blue", "pink", "gray"];
+// TODO: Add more background colors for notes
+// const colors = ["yellow", "green", "blue", "pink", "gray"];
 
-// saveNote without brackets to not run the function at file load
-btnSaveNote.addEventListener("click", saveNote);
+// Index of open note for edit in overlay
+let currentOpenedNoteIndex = null;
 
 function init() {
-    addColorButtons();
+    showInstructions();
+    applyNoteColor(noteInputCard, selectedNoteColor);
     renderNotes();
-    noteInputCard.classList.add(selectedNoteColor);
 }
 
 function renderNotes() {
-    let html = "";
+    const archivedNotes = [];
+    const deletedNotes = [];
+
     myNotesContainer.innerHTML = "";
+    archivedNotesContainer.innerHTML = "";
+    deletedNotesContainer.innerHTML = "";
 
     for (let i = 0; i < myNotes.length; i++) {
-        console.log(getNoteTemplate(i));
-        html += getNoteTemplate(i);
-    }
-    myNotesContainer.innerHTML = html;
-}
+        const noteHTML = getNoteTemplate(i);
 
-function getNoteTemplate(index) {
-    return `
-            <article class="noteCard ${myNotes[index].noteColor}">
-                <h3>${myNotes[index].noteTitle}</h3>
-                <p>${myNotes[index].noteText.substring(0, 120)}</p>
-            </article>
-        `;
+        if (myNotes[i].isDeleted) {
+            deletedNotesContainer.innerHTML += noteHTML;
+        } else if (myNotes[i].isArchived) {
+            archivedNotesContainer.innerHTML += noteHTML;
+        } else {
+            myNotesContainer.innerHTML += noteHTML;
+        }
+    }
+
+    // addEditEvents();
+    // addArchiveEvents();
+    // addDeleteEvents();
+
+    addEventsToButtons(".noteCard", editNote);
+    addEventsToButtons(".editButton", editNote);
+    addEventsToButtons(".archiveButton", archiveNote);
+    addEventsToButtons(".deleteButton", deleteNote);
 }
 
 function saveNote() {
@@ -57,12 +79,12 @@ function saveNote() {
         noteTitle: noteTitle,
         noteText: noteText,
         noteColor: selectedNoteColor,
+        isArchived: false,
+        isDeleted: false,
     });
 
-    localStorage.setItem("myNotes", JSON.stringify(myNotes));
-
+    updateLocalStorage();
     clearNoteInputs();
-
     renderNotes();
 }
 
@@ -71,24 +93,46 @@ function clearNoteInputs() {
     noteTextInput.value = "";
 }
 
-function selectNoteColor(color) {
-    selectedNoteColor = color;
-    noteInputCard.classList.remove(previousNoteColor);
-    noteInputCard.classList.add(color);
-    previousNoteColor = color;
-    console.log(selectedNoteColor);
+// Edit note in overlay
+function editNote(index) {
+    openNoteOverlay(index);
 }
 
-function addColorButtons() {
-    for (let i = 0; i < colors.length; i++) {
-        const button = document.createElement("button");
-        button.classList.add("colorButton", colors[i]);
+// Move note to archive or un-archive note (= move back to Saved Notes)
+function archiveNote(index) {
+    myNotes[index].isArchived = !myNotes[index].isArchived;
+    myNotes[index].isDeleted = false;
 
-        button.addEventListener("click", () => {
-            selectNoteColor(colors[i]);
-            
-            
-        });
-        noteColorSelection.appendChild(button);
+    updateLocalStorage();
+    renderNotes();
+}
+
+// Move note to deleted notes or delete forever depending on actual location
+function deleteNote(index) {
+    console.log("delete => " + index);
+
+    if (myNotes[index].isDeleted === true) {
+        // delete forever
+        myNotes.splice(index, 1);
+        updateLocalStorage();
+        renderNotes();
+        return;
     }
+
+    myNotes[index].isDeleted = true;
+    myNotes[index].isArchived = false;
+
+    updateLocalStorage();
+    renderNotes();
 }
+
+function updateLocalStorage() {
+    localStorage.setItem("myNotes", JSON.stringify(myNotes));
+}
+
+// Close window when clicked outside lightbox
+noteOverlay.addEventListener("click", (event) => {
+    if (event.target === noteOverlay) {
+        closeNoteOverlay();
+    }
+});

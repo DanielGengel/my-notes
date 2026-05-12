@@ -1,0 +1,86 @@
+.noteInputSection {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+}
+
+.noteInputCard {
+    width: 340px;
+    min-height: 340px;
+    background-color: #fff59d;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transform: rotate(-2deg);
+}
+
+.noteInputCard input,
+.noteInputCard textarea {
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 18px;
+}
+
+.noteInputCard textarea {
+    resize: none;
+    min-height: 140px;
+}
+
+.inputFooter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Preperation for mor background colors for notes */
+/* .noteColorSelection,
+.overlayColorSelection {
+    display: flex;
+    gap: 12px;
+}
+
+.colorButton {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid #555;
+    cursor: pointer;
+}
+
+*/
+.yellow {
+    background-color: #fff59d;
+}
+
+/*
+.green {
+    background-color: #c8f7c5;
+}
+
+.blue {
+    background-color: #b3e5fc;
+}
+
+.pink {
+    background-color: #f8bbd0;
+}
+
+.gray {
+    background-color: #d6d6d6;
+} */
+
+.buttonSaveNote {
+    margin-top: auto;
+    border: none;
+    padding: 12px;
+    cursor: pointer;
+    border-radius: 6px;
+    background-color: #222;
+    color: white;
+}
